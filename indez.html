@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix - Sua nova paixão em streaming!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-gray-100 leading-relaxed overflow-x-hidden">
+
+    <header class="relative w-full h-screen flex justify-center items-center text-center overflow-hidden">
+        <video autoplay muted loop class="absolute top-1/2 left-1/2 min-w-full min-h-full w-auto h-auto z-0 transform -translate-x-1/2 -translate-y-1/2 object-cover filter brightness-50"
+               onerror="this.src='https://placehold.co/1920x1080/000000/FFFFFF?text=Video+Indisponivel'; this.poster='https://placehold.co/1920x1080/000000/FFFFFF?text=Video+Indisponivel';"
+               poster="https://placehold.co/1920x1080/000000/FFFFFF?text=Video+Carregando">
+            <source src="https://placehold.co/1920x1080/000000/FFFFFF?text=Seu+Video+Promocional" type="video/mp4">
+            Seu navegador não suporta vídeos HTML5.
+        </video>
+
+        <div class="relative z-10 p-5 bg-black bg-opacity-50 rounded-xl max-w-4xl mx-auto shadow-lg">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-white drop-shadow-md">Descubra o universo StreamFlix!</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-200">Milhares de filmes, séries e documentários originais esperando por você.</p>
+            <button id="cta-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-2xl uppercase tracking-wide transition duration-300 ease-in-out transform hover:scale-105 shadow-xl">
+                Assine Agora e Ganhe 7 Dias Grátis!
+            </button>
+        </div>
+    </header>
+
+    <section class="py-16 px-5 bg-gray-900">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-800 p-8 rounded-xl text-center shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <h2 class="text-3xl font-bold text-red-500 mb-4">Conteúdo Exclusivo</h2>
+                <p class="text-lg text-gray-300">Acesse produções originais que você só encontra aqui.</p>
+            </div>
+            <div class="bg-gray-800 p-8 rounded-xl text-center shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <h2 class="text-3xl font-bold text-red-500 mb-4">Assista Onde Quiser</h2>
+                <p class="text-lg text-gray-300">Disponível em TV, celular, tablet e computador.</p>
+            </div>
+            <div class="bg-gray-800 p-8 rounded-xl text-center shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2">
+                <h2 class="text-3xl font-bold text-red-500 mb-4">Para Toda Família</h2>
+                <p class="text-lg text-gray-300">Perfis personalizados e controle parental para todas as idades.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-950 text-gray-500 text-center py-6 text-sm">
+        <p>&copy; 2025 StreamFlix. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Garante que o script só rode depois que toda a estrutura HTML for carregada
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctaButton = document.getElementById('cta-button');
+
+            // Adiciona um ouvinte de evento de clique ao botão CTA
+            ctaButton.addEventListener('click', () => {
+                // Em vez de alert(), que não é permitido, usaremos um modal simples
+                showCustomModal('🎉 Incrível! Você será redirecionado para a página de assinatura. Aproveite seus 7 dias grátis!');
+                // Aqui você adicionaria o código para redirecionar o usuário
+                // setTimeout(() => {
+                //     window.location.href = 'https://seusite.com/assinatura';
+                // }, 3000); // Redireciona após 3 segundos
+            });
+
+            // Função para exibir um modal personalizado (substituindo alert())
+            function showCustomModal(message) {
+                // Cria o elemento do modal
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4';
+                modal.innerHTML = `
+                    <div class="bg-gray-800 p-8 rounded-lg shadow-xl max-w-md w-full text-center border-2 border-red-600 animate-fade-in-up">
+                        <p class="text-white text-xl mb-6">${message}</p>
+                        <button id="modal-close-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-md transition duration-300 ease-in-out">
+                            Fechar
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Adiciona animações CSS para o modal
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    @keyframes fadeInDown {
+                        from { opacity: 0; transform: translateY(-20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .animate-fade-in-up {
+                        animation: fadeInDown 0.3s ease-out forwards;
+                    }
+                `;
+                document.head.appendChild(style);
+
+
+                // Adiciona ouvinte de evento para fechar o modal
+                document.getElementById('modal-close-button').addEventListener('click', () => {
+                    modal.remove();
+                    style.remove(); // Remove o estilo dinâmico
+                });
+            }
+        });
+    </script>
+</body>
+</html>
